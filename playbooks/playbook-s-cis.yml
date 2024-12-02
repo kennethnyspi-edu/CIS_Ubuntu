@@ -5,9 +5,7 @@
 # ------------------------------------------------------------------------------
 - name: "CIS | hardening run"
   remote_user: "{{ ansible_user }}"
-  hosts:
-    - clients
-    - servers
+  hosts: all
   become: true
   vars:
     pl_a_var_client_server: "{{ true if inventory_hostname in (groups['clients'] | default([])) else false }}"
@@ -176,9 +174,7 @@
 # ------------------------------------------------------------------------------
 - name: "CIS | additional configs for client/server"
   remote_user: "{{ ansible_user }}"
-  hosts:
-    - clients
-    - servers
+  hosts: all
   become: true
   tasks:
     - name: "CIS | set/update system variables for aide"
