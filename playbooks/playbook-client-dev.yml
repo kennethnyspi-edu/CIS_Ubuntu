@@ -7,7 +7,7 @@
 
 # ------------------------------------------------------------------------------
 - name: Server installer
-  remote_user: "{{ ansible_user }}"
+##  remote_user: "{{ ansible_user }}"
   hosts:
     - clients
   roles:
@@ -55,7 +55,7 @@
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 - name: Client installer
-  remote_user: "{{ ansible_user }}"
+##  remote_user: "{{ ansible_user }}"
   hosts:
     - clients
   roles:
