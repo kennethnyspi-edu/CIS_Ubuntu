@@ -1,0 +1,431 @@
+
+---
+# playbook CIS
+# Added by Kenneth Masis 4/24/2025
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+- name: "CIS | Basic Hardening"
+##  remote_user: "{{ ansible_user }}"
+  hosts: all
+  become: true
+  vars:
+    pl_a_var_client_server: "{{ true if inventory_hostname in (groups['clients'] | default([])) else false }}"
+    pl_a_var_server_client: "{{ false if inventory_hostname in (groups['clients'] | default([])) else true }}"
+    # pl_a_cis_preferred_capturing_log_method: "{{ 'rsyslog' if inventory_hostname in (groups['clients'] | default([])) else 'journald' }}"
+  tasks:
+    - name: "Include Ubuntu 22.04 CIS role"
+      when:
+        - pl_a_cis_setup is defined
+        - pl_a_cis_setup | bool
+        - ansible_distribution | lower == "ubuntu"
+        - ansible_distribution_version in ["22.04", "22.10", "23.04", "23.10"]
+      import_role:
+        name: ansible-cis-ubuntu-2204
+      vars:
+        cis_ubuntu2204_section1: true
+        cis_ubuntu2204_section2: true
+        cis_ubuntu2204_section3: true
+        cis_ubuntu2204_section4: true
+        cis_ubuntu2204_section5: true
+        cis_ubuntu2204_section6: true
+        cis_ubuntu2204_section7: true
+        # -------------------------
+        cis_ubuntu2204_rule_1_1_1_6: false # squashfs - IMPACT: Snap packages utilizes squashfs as a compressed filesystem, disabling squashfs will cause Snap packages to fail.
+        # -------------------------
+        cis_ubuntu2204_rule_5_1_24: true
+        cis_ubuntu2204_rule_5_1_24_ssh_user: "{{ ansible_user }}"
+        cis_ubuntu2204_rule_5_1_24_ssh_pub_key: "{{ pl_a_cis_setup_ssh_pub_key | default(null) }}"
+        # -------------------------
+        cis_ubuntu2204_rule_1_3_1_3: false # AppArmor complain mode
+        cis_ubuntu2204_rule_1_3_1_4: false # AppArmor enforce mode
+        # -------------------------
+        cis_ubuntu2204_rule_1_4_1: false # bootloader password (disabled)
+        cis_ubuntu2204_set_boot_pass: false # bootloader password (disabled)
+        cis_ubuntu2204_disable_boot_pass: true # bootloader password (disabled)
+        # -------------------------
+        cis_ubuntu2204_rule_3_1_3: "{{ pl_a_var_server_client }}" # bluetooth service
+        cis_ubuntu2204_rule_3_1_3_remove: "{{ pl_a_var_server_client }}" # bluetooth service
+        # -------------------------
+        cis_ubuntu2204_allow_gdm_gui: "{{ pl_a_var_client_server }}"
+        cis_ubuntu2204_allow_autofs: "{{ pl_a_var_client_server }}" # Disable auto mount, set to true to allow it and not disable
+        cis_ubuntu2204_rule_1_1_1_8: "{{ pl_a_var_server_client }}" # Disable USB Storage, set to false to not disable
+        cis_ubuntu2204_time_synchronization_service: chrony # chrony | systemd-timesyncd
+        cis_ubuntu2204_time_synchronization_time_server:
+          - uri: '{{ pl_a_host_default_ntp | default("time.cloudflare.com")}}'
+          - uri: '{{ pl_a_host_fallback_ntp | default("ntp.ubuntu.com")}}'
+        cis_ubuntu2204_allow_cups: "{{ pl_a_var_client_server }}"
+        # -------------------------
+        cis_ubuntu2204_install_aide: "{{ pl_a_cis_setup_aide | default(false) | bool }}"
+        cis_ubuntu2204_config_aide: "{{ pl_a_cis_setup_aide | default(false) | bool }}"
+        cis_ubuntu2204_aide_cron:
+          cron_user: root
+          cron_file: aide
+          aide_job: "/usr/bin/aide.wrapper --config /etc/aide/aide.conf --check"
+          aide_minute: 0
+          aide_hour: 5
+          aide_day: "*"
+          aide_month: "*"
+          aide_weekday: "*"
+        # -------------------------
+        cis_ubuntu2204_journald_system_max_use: 4G
+        cis_ubuntu2204_journald_system_keep_free: 8G
+        cis_ubuntu2204_journald_runtime_max_use: 256M
+        cis_ubuntu2204_journald_runtime_keep_free: 512M
+        cis_ubuntu2204_journald_max_file_sec: 1month
+        # -------------------------
+        cis_ubuntu2204_required_ipv6: "{{ pl_a_cis_ipv6_required | default(false) | bool }}"
+        cis_ubuntu2204_firewall: ufw
+        # -------------------------
+        cis_ubuntu2204_cron_allow_users:
+          - root
+        cis_ubuntu2204_at_allow_users:
+          - root
+        # -------------------------
+        cis_ubuntu2204_faillock_deny: 5
+        cis_ubuntu2204_faillock_unlock_time: 900
+        cis_ubuntu2204_faillock_minlen: 8
+        cis_ubuntu2204_password_complexity:
+          - key: "minclass"
+            value: "3"
+          - key: "dcredit"
+            value: "-1"
+          - key: "ucredit"
+            value: "-1"
+          - key: "ocredit"
+            value: "-1"
+          - key: "lcredit"
+            value: "-1"
+
+# -------------------------------------------------------------------------------------------
+          
+    - name: "Include Ubuntu 24.04 CIS role"
+      when:
+        - pl_a_cis_setup is defined
+        - pl_a_cis_setup | bool
+        - ansible_distribution | lower == "ubuntu"
+        - ansible_distribution_version in ["24.04", "24.10"]
+      import_role:
+        name: ansible-cis-ubuntu-2404
+      vars:
+        cis_ubuntu2404_section1: true
+        cis_ubuntu2404_section2: true
+        cis_ubuntu2404_section3: false
+        cis_ubuntu2404_section4: true
+        cis_ubuntu2404_section5: true
+        cis_ubuntu2404_section6: true
+        cis_ubuntu2404_section7: true
+        
+        # ---Section 1 --------------------
+        cis_ubuntu2404_rule_1_1_1_1: false # cramfs
+        cis_ubuntu2404_rule_1_1_1_2: false # freevxfs
+        cis_ubuntu2404_rule_1_1_1_3: false # hfs
+        cis_ubuntu2404_rule_1_1_1_4: false # hfsplus
+        cis_ubuntu2404_rule_1_1_1_5: false # jffs2
+        cis_ubuntu2404_rule_1_1_1_6: false # overlayfs
+        cis_ubuntu2404_rule_1_1_1_7: false # squashfs - IMPACT: Snap packages utilizes squashfs as a compressed filesystem, disabling squashfs will cause Snap packages to fail.
+        cis_ubuntu2404_rule_1_1_1_8: false # udf - IMPACT: Microsoft Azure requires the usage of udf.
+        cis_ubuntu2404_rule_1_1_1_10: false # unused filesystems
+        cis_ubuntu2404_rule_1_1_2_1: false # /tmp
+        # cis_ubuntu2404_rule_1_1_2_1_1: false # NOTE: implicit in 'cis_ubuntu2404_rule_1_1_2_1'
+        cis_ubuntu2404_rule_1_1_2_1_2: false
+        # cis_ubuntu2404_rule_1_1_2_2_1: false # NOTE: implicit in 'cis_ubuntu2404_rule_1_1_2_2'
+        # cis_ubuntu2404_rule_1_1_2_2_2: false # NOTE: implicit in 'cis_ubuntu2404_rule_1_1_2_2'
+        # cis_ubuntu2404_rule_1_1_2_2_3: false # NOTE: implicit in 'cis_ubuntu2404_rule_1_1_2_2'
+        # cis_ubuntu2404_rule_1_1_2_2_4: false # NOTE: implicit in 'cis_ubuntu2404_rule_1_1_2_2'
+        # cis_ubuntu2404_rule_1_1_2_3: false # NOTE: not implemented, separate partition not created
+        # cis_ubuntu2404_rule_1_1_2_4: false # NOTE: not implemented, separate partition not created
+        # cis_ubuntu2404_rule_1_1_2_5: false # NOTE: not implemented, separate partition not created
+        # cis_ubuntu2404_rule_1_1_2_6: false # NOTE: not implemented, separate partition not created
+        # cis_ubuntu2404_rule_1_1_2_7: false # NOTE: not implemented, separate partition not created
+        cis_ubuntu2404_rule_1_3_1_3: false # AppArmor complain mode
+        cis_ubuntu2404_rule_1_3_1_4: false # AppArmor enforce mode      
+        cis_ubuntu2404_rule_1_1_1_4: "{{ pl_a_var_server_client }}" # hfsplus
+        cis_ubuntu2404_rule_1_1_1_7: "{{ pl_a_var_server_client }}" # squashfs - IMPACT: Snap packages utilizes squashfs as a compressed filesystem, disabling squashfs will cause Snap packages to fail.
+        cis_ubuntu2404_rule_1_3_1_3: false # NOTE: disabled - will run to have all in complain-mode'
+        cis_ubuntu2404_rule_1_3_1_4: false # NOTE: disabled - will run to have all in enforce-mode
+        cis_ubuntu2404_rule_1_5_1: false
+        cis_ubuntu2404_rule_1_5_2: false
+        cis_ubuntu2404_rule_1_5_3: false
+        cis_ubuntu2404_rule_1_5_4: false
+        cis_ubuntu2404_rule_1_5_5: false
+        cis_ubuntu2404_rule_1_6_1: false
+        cis_ubuntu2404_rule_1_6_2: false
+        cis_ubuntu2404_rule_1_6_3: false
+        cis_ubuntu2404_rule_1_7_1: false
+        cis_ubuntu2404_rule_1_7_2: false # NOTE: depends also on 'cis_ubuntu2404_allow_gdm_gui'
+        cis_ubuntu2404_rule_1_7_3: false # NOTE: depends also on 'cis_ubuntu2404_allow_gdm_gui'
+        cis_ubuntu2404_rule_1_7_7: false # NOTE: depends also on 'cis_ubuntu2404_allow_gdm_gui' and 'cis_ubuntu2404_allow_autofs'
+        cis_ubuntu2404_rule_1_7_10: false # NOTE: depends also on 'cis_ubuntu2404_allow_gdm_gui'
+
+        # ---Section 2 --------------------
+        cis_ubuntu2404_rule_2_1_2: false
+        cis_ubuntu2404_rule_2_1_2_remove: false
+        cis_ubuntu2404_rule_2_1_3: false
+        cis_ubuntu2404_rule_2_1_3_remove: false
+        cis_ubuntu2404_rule_2_1_4: false
+        cis_ubuntu2404_rule_2_1_4_remove: false
+        cis_ubuntu2404_rule_2_1_5: false
+        cis_ubuntu2404_rule_2_1_5_remove: false
+        cis_ubuntu2404_rule_2_1_6: false
+        cis_ubuntu2404_rule_2_1_6_remove: false
+        cis_ubuntu2404_rule_2_1_7: false
+        cis_ubuntu2404_rule_2_1_7_remove: false
+        cis_ubuntu2404_rule_2_1_8: false
+        cis_ubuntu2404_rule_2_1_8_remove: false
+        cis_ubuntu2404_rule_2_1_9: false
+        cis_ubuntu2404_rule_2_1_9_remove: false
+        cis_ubuntu2404_rule_2_1_10: false
+        cis_ubuntu2404_rule_2_1_10_remove: false
+        cis_ubuntu2404_rule_2_1_11: false # NOTE: depends also on 'cis_ubuntu2404_allow_cups'
+        cis_ubuntu2404_rule_2_1_11_remove: false # NOTE: depends also on 'cis_ubuntu2404_allow_cups'
+        cis_ubuntu2404_rule_2_1_12: false
+        cis_ubuntu2404_rule_2_1_12_remove: false
+        cis_ubuntu2404_rule_2_1_13: false
+        cis_ubuntu2404_rule_2_1_13_remove: false
+        cis_ubuntu2404_rule_2_1_14: false
+        cis_ubuntu2404_rule_2_1_14_remove: false
+        cis_ubuntu2404_rule_2_1_15: false
+        cis_ubuntu2404_rule_2_1_15_remove: false
+        cis_ubuntu2404_rule_2_1_16: false
+        cis_ubuntu2404_rule_2_1_16_remove: false
+        cis_ubuntu2404_rule_2_1_17: false
+        cis_ubuntu2404_rule_2_1_17_remove: false
+        cis_ubuntu2404_rule_2_1_18: false
+        cis_ubuntu2404_rule_2_1_18_remove: false
+        cis_ubuntu2404_rule_2_1_19: false
+        cis_ubuntu2404_rule_2_1_19_remove: false
+        cis_ubuntu2404_rule_2_1_20: false # NOTE: depends also on 'cis_ubuntu2404_allow_gdm_gui'
+        cis_ubuntu2404_rule_2_1_20_remove: false # NOTE: depends also on 'cis_ubuntu2404_allow_gdm_gui'
+        cis_ubuntu2404_rule_2_1_21: false
+        cis_ubuntu2404_rule_2_1_22: false
+        cis_ubuntu2404_rule_2_2_1: false
+        cis_ubuntu2404_rule_2_2_2: false
+        cis_ubuntu2404_rule_2_2_3: false
+        cis_ubuntu2404_rule_2_2_4: false
+        cis_ubuntu2404_rule_2_2_5: false
+        cis_ubuntu2404_rule_2_2_6: false
+        cis_ubuntu2404_rule_2_3_1_1: false
+        cis_ubuntu2404_rule_2_3_2_1: false
+        cis_ubuntu2404_rule_2_3_3_1: false
+        cis_ubuntu2404_rule_2_3_3_2: false
+        cis_ubuntu2404_rule_2_4_1_1: false
+
+        # ---Section 3 --------------------
+        cis_ubuntu2404_rule_3_1_1: false # NOTE: depends also on 'cis_ubuntu2404_required_ipv6'
+        cis_ubuntu2404_rule_3_1_2: false
+        cis_ubuntu2404_rule_3_1_3: false
+        cis_ubuntu2404_rule_3_1_3_remove: false
+        cis_ubuntu2404_rule_3_2_1: false
+        cis_ubuntu2404_rule_3_2_2: false
+        cis_ubuntu2404_rule_3_2_3: false
+        cis_ubuntu2404_rule_3_2_4: false
+        cis_ubuntu2404_rule_3_3_1: false
+        cis_ubuntu2404_rule_3_3_2: false
+        cis_ubuntu2404_rule_3_3_3: false
+        cis_ubuntu2404_rule_3_3_4: false
+        cis_ubuntu2404_rule_3_3_5: false
+        cis_ubuntu2404_rule_3_3_6: false
+        cis_ubuntu2404_rule_3_3_7: false
+        cis_ubuntu2404_rule_3_3_8: false
+        cis_ubuntu2404_rule_3_3_9: false
+        cis_ubuntu2404_rule_3_3_10: false
+        cis_ubuntu2404_rule_3_3_11: false
+
+        # ---Section 5 --------------------
+        cis_ubuntu2404_rule_5_1_5: false
+        cis_ubuntu2404_rule_5_1_6: false
+        cis_ubuntu2404_rule_5_1_7: false
+        cis_ubuntu2404_rule_5_1_8: false
+        cis_ubuntu2404_rule_5_1_9: false
+        cis_ubuntu2404_rule_5_1_10: false
+        cis_ubuntu2404_rule_5_1_12: false
+        cis_ubuntu2404_rule_5_1_13: false
+        cis_ubuntu2404_rule_5_1_15: false
+        cis_ubuntu2404_rule_5_1_16: false
+        cis_ubuntu2404_rule_5_1_17: false
+        cis_ubuntu2404_rule_5_1_18: false
+        cis_ubuntu2404_rule_5_1_21: false
+        cis_ubuntu2404_rule_5_1_23: false # NOTE: EXTENDED - own added, not included in CIS
+        cis_ubuntu2404_rule_5_1_24: true
+        cis_ubuntu2404_rule_5_1_24_ssh_user: "{{ ansible_user }}"
+        cis_ubuntu2404_rule_5_1_24_ssh_pub_key: "{{ pl_a_cis_setup_ssh_pub_key | default(null) }}"
+        cis_ubuntu2404_rule_5_2_3: false
+        cis_ubuntu2404_rule_5_2_4: false
+        cis_ubuntu2404_rule_5_3_1_1: false
+        cis_ubuntu2404_rule_5_3_1_2: false
+        cis_ubuntu2404_rule_5_3_1_3: false
+        cis_ubuntu2404_rule_5_3_3_1_3: false
+        cis_ubuntu2404_rule_5_3_3_3_3: false
+        cis_ubuntu2404_rule_5_3_3_4_3: false
+        cis_ubuntu2404_rule_5_3_3_4_4: false
+        cis_ubuntu2404_rule_5_4_1_2: false
+        cis_ubuntu2404_rule_5_4_1_4: false
+        cis_ubuntu2404_rule_5_4_2_1: false
+        cis_ubuntu2404_rule_5_4_2_5: false
+        cis_ubuntu2404_rule_5_4_3_1: false
+
+        # ---Section 6 --------------------
+        # cis_ubuntu2404_rule_6_1_1_4: false # NOTE: not implemented as it will verified implicit by choose on 'cis_ubuntu2404_preferred_capturing_log_method'
+        # cis_ubuntu2404_rule_6_1_2_1_3: false # NOTE: journald-remote - implicit in 'cis_ubuntu2404_rule_6_1_2_1_2'
+        cis_ubuntu2404_rule_6_1_2_2: false # NOTE: journald - depends also on 'cis_ubuntu2404_preferred_capturing_log_method'
+        cis_ubuntu2404_rule_6_1_2_3: false # NOTE: journald - depends also on 'cis_ubuntu2404_preferred_capturing_log_method'
+        cis_ubuntu2404_rule_6_1_2_4: false # NOTE: journald - depends also on 'cis_ubuntu2404_preferred_capturing_log_method'
+        cis_ubuntu2404_rule_6_1_3_7: false # NOTE: rsyslog - depends also on 'cis_ubuntu2404_preferred_capturing_log_method'
+        cis_ubuntu2404_rule_6_2_1_1: false
+        cis_ubuntu2404_rule_6_2_1_2: false
+        cis_ubuntu2404_rule_6_2_1_3: false
+        cis_ubuntu2404_rule_6_2_1_4: false
+        cis_ubuntu2404_rule_6_2_2_1: false
+        cis_ubuntu2404_rule_6_2_2_2: false
+        cis_ubuntu2404_rule_6_2_2_3: false
+        cis_ubuntu2404_rule_6_2_2_4: false
+        cis_ubuntu2404_rule_6_2_3_1: false
+        cis_ubuntu2404_rule_6_2_3_2: false
+        cis_ubuntu2404_rule_6_2_3_3: false
+        cis_ubuntu2404_rule_6_2_3_4: false
+        cis_ubuntu2404_rule_6_2_3_5: false
+        cis_ubuntu2404_rule_6_2_3_6: false
+        cis_ubuntu2404_rule_6_2_3_7: false
+        cis_ubuntu2404_rule_6_2_3_8: false
+        cis_ubuntu2404_rule_6_2_3_9: false
+        cis_ubuntu2404_rule_6_2_3_10: false
+        cis_ubuntu2404_rule_6_2_3_11: false
+        cis_ubuntu2404_rule_6_2_3_12: false
+        cis_ubuntu2404_rule_6_2_3_13: false
+        cis_ubuntu2404_rule_6_2_3_14: false
+        cis_ubuntu2404_rule_6_2_3_15: false
+        cis_ubuntu2404_rule_6_2_3_16: false
+        cis_ubuntu2404_rule_6_2_3_17: false
+        cis_ubuntu2404_rule_6_2_3_18: false
+        cis_ubuntu2404_rule_6_2_3_19: false
+        cis_ubuntu2404_rule_6_2_3_20: false
+        # cis_ubuntu2404_rule_6_2_3_21: false # NOTE: implicit in 'cis_ubuntu2404_rule_6_2_3_1-20'
+        cis_ubuntu2404_rule_6_2_4_0: false # NOTE: EXTENDED
+        cis_ubuntu2404_rule_6_2_4_1: false
+        cis_ubuntu2404_rule_6_2_4_2: false
+        cis_ubuntu2404_rule_6_2_4_3: false
+        cis_ubuntu2404_rule_6_2_4_4: false
+        cis_ubuntu2404_rule_6_2_4_5: false
+        cis_ubuntu2404_rule_6_2_4_6: false
+        cis_ubuntu2404_rule_6_2_4_7: false
+        cis_ubuntu2404_rule_6_2_4_8: false
+        cis_ubuntu2404_rule_6_2_4_9: false
+        cis_ubuntu2404_rule_6_2_4_10: false
+
+        # ---Section 7 --------------------
+        cis_ubuntu2404_rule_7_2_1: false
+        cis_ubuntu2404_rule_7_2_5: false
+        cis_ubuntu2404_rule_7_2_6: false
+        cis_ubuntu2404_rule_7_2_7: false
+        cis_ubuntu2404_rule_7_2_8: false
+        
+        # -------------------------
+        # cis_ubuntu2404_apparmor_update_to_complain_profiles:
+        #   - firefox
+        # cis_ubuntu2404_apparmor_update_to_enforce_profiles:
+        #   - firefox
+        # -------------------------
+        cis_ubuntu2404_set_boot_pass: false # bootloader password (disabled)
+        cis_ubuntu2404_disable_boot_pass: false # bootloader password (disabled with cis_ubuntu2404_set_boot_pass)
+        # -------------------------
+        cis_ubuntu2404_rule_3_1_3: "{{ pl_a_var_server_client }}" # bluetooth service
+        cis_ubuntu2404_rule_3_1_3_remove: "{{ pl_a_var_server_client }}" # bluetooth service
+        # -------------------------
+        cis_ubuntu2404_allow_gdm_gui: "{{ pl_a_var_client_server }}"
+        cis_ubuntu2404_allow_autofs: "{{ pl_a_var_client_server }}" # Disable auto mount, set to true to allow it and not disable
+        cis_ubuntu2404_rule_1_1_1_9: "{{ pl_a_var_server_client }}" # Disable USB Storage, set to false to not disable
+        cis_ubuntu2404_time_synchronization_service: chrony # chrony | systemd-timesyncd
+        cis_ubuntu2404_time_synchronization_time_server:
+          - uri: '{{ pl_a_host_default_ntp | default("time.cloudflare.com")}}'
+          - uri: '{{ pl_a_host_fallback_ntp | default("ntp.ubuntu.com")}}'
+        cis_ubuntu2404_allow_cups: "{{ pl_a_var_client_server }}"
+        # -------------------------
+        cis_ubuntu2404_install_aide: "{{ pl_a_cis_setup_aide | default(false) | bool }}"
+        cis_ubuntu2404_config_aide: "{{ pl_a_cis_setup_aide | default(false) | bool }}"
+        # -------------------------
+        cis_ubuntu2404_journald_system_max_use: 4G
+        cis_ubuntu2404_journald_system_keep_free: 8G
+        cis_ubuntu2404_journald_runtime_max_use: 256M
+        cis_ubuntu2404_journald_runtime_keep_free: 512M
+        cis_ubuntu2404_journald_max_file_sec: 1month
+        # -------------------------
+        cis_ubuntu2404_preferred_capturing_log_method: "{{ pl_a_cis_preferred_capturing_log_method | default('rsyslog') }}"
+        # -------------------------
+        cis_ubuntu2404_required_ipv6: "{{ pl_a_cis_ipv6_required | default(false) | bool }}"
+        cis_ubuntu2404_firewall: ufw
+        # -------------------------
+        cis_ubuntu2404_cron_allow_users:
+          - root
+        cis_ubuntu2404_at_allow_users:
+          - root
+        # -------------------------
+        cis_ubuntu2404_faillock_deny: 5
+        cis_ubuntu2404_faillock_unlock_time: 900
+        cis_ubuntu2404_faillock_minlen: 8
+        cis_ubuntu2404_password_complexity:
+          - key: "minclass"
+            value: "3"
+          - key: "dcredit"
+            value: "-1"
+          - key: "ucredit"
+            value: "-1"
+          - key: "ocredit"
+            value: "-1"
+          - key: "lcredit"
+            value: "-1"
+
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+- name: "CIS | additional configs for client/server"
+## remote_user: "{{ ansible_user }}"
+  hosts: all
+  become: true
+  tasks:
+    - name: "CIS | set/update system variables for aide"
+      ansible.builtin.lineinfile:
+        dest: "/etc/environment"
+        state: present
+        regexp: '^(#(\s)*)?{{ item.key }}\s*=.*$'
+        line: "{{ item.key }}={{ item.value }}"
+      with_items:
+        - key: CRON_DAILY_RUN
+          value: "yes"
+        - key: MAILTO
+          value: "{{ pl_a_mailing_mail_to | default('root') }}"
+        - key: COPYNEWDB
+          value: "yes"
+        - key: TRUNCATEDETAILS
+          value: "yes"
+        - key: FILTERUPDATES
+          value: "yes"
+        - key: FILTERINSTALLATIONS
+          value: "yes"
+      when:
+        - pl_a_cis_setup is defined
+        - pl_a_cis_setup | bool
+        - pl_a_cis_setup_aide is defined
+        - pl_a_cis_setup_aide | bool
+    - name: "CIS | set/update aide variables for aide"
+      ansible.builtin.lineinfile:
+        dest: "/etc/default/aide"
+        state: present
+        regexp: '^(#(\s)*)?{{ item.key }}\s*=.*$'
+        line: "{{ item.key }}={{ item.value }}"
+      with_items:
+        - key: CRON_DAILY_RUN
+          value: "yes"
+        - key: MAILTO
+          value: "{{ pl_a_mailing_mail_to | default('root') }}"
+        - key: COPYNEWDB
+          value: "yes"
+        - key: TRUNCATEDETAILS
+          value: "yes"
+        - key: FILTERUPDATES
+          value: "yes"
+        - key: FILTERINSTALLATIONS
+          value: "yes"
+      when:
+        - pl_a_cis_setup is defined
+        - pl_a_cis_setup | bool
+        - pl_a_cis_setup_aide is defined
+        - pl_a_cis_setup_aide | bool
