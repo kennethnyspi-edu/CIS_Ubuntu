@@ -11,13 +11,15 @@
     pl_a_var_client_server: "{{ true if inventory_hostname in (groups['clients'] | default([])) else false }}"
     pl_a_var_server_client: "{{ false if inventory_hostname in (groups['clients'] | default([])) else true }}"
     # pl_a_cis_preferred_capturing_log_method: "{{ 'rsyslog' if inventory_hostname in (groups['clients'] | default([])) else 'journald' }}"
-  roles:
-    - role: ansible-cis-ubuntu-2204
+  tasks:
+    - name: "Include Ubuntu 22.04 CIS role"
       when:
         - pl_a_cis_setup is defined
         - pl_a_cis_setup | bool
         - ansible_distribution | lower == "ubuntu"
         - ansible_distribution_version in ["22.04", "22.10", "23.04", "23.10"]
+      import_role:
+        name: ansible-cis-ubuntu-2204
       vars:
         cis_ubuntu2204_section1: true
         cis_ubuntu2204_section2: true
@@ -92,12 +94,14 @@
             value: "-1"
           - key: "lcredit"
             value: "-1"
-    - role: ansible-cis-ubuntu-2404
+    - name: "Include Ubuntu 24.04 CIS role"
       when:
         - pl_a_cis_setup is defined
         - pl_a_cis_setup | bool
         - ansible_distribution | lower == "ubuntu"
         - ansible_distribution_version in ["24.04", "24.10"]
+      import_role:
+        name: ansible-cis-ubuntu-2404
       vars:
         cis_ubuntu2404_section1: true
         cis_ubuntu2404_section2: true
@@ -114,7 +118,7 @@
         cis_ubuntu2404_rule_5_1_24_ssh_user: "{{ ansible_user }}"
         cis_ubuntu2404_rule_5_1_24_ssh_pub_key: "{{ pl_a_cis_setup_ssh_pub_key | default(null) }}"
         # -------------------------
-        cis_ubuntu2404_rule_1_3_1_3: true # AppArmor complain mode
+        cis_ubuntu2404_rule_1_3_1_3: false # AppArmor complain mode
         cis_ubuntu2404_rule_1_3_1_4: false # AppArmor enforce mode
         # cis_ubuntu2404_apparmor_update_to_complain_profiles:
         #   - firefox
