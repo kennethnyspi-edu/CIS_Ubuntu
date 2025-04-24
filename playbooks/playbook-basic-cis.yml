@@ -139,10 +139,10 @@
         # cis_ubuntu2404_rule_1_1_2_7: false # NOTE: not implemented, separate partition not created
         cis_ubuntu2404_rule_1_3_1_3: false # AppArmor complain mode
         cis_ubuntu2404_rule_1_3_1_4: false # AppArmor enforce mode      
-        cis_ubuntu2404_rule_1_1_1_4: "{{ pl_a_var_server_client }}" # hfsplus
-        cis_ubuntu2404_rule_1_1_1_7: "{{ pl_a_var_server_client }}" # squashfs - IMPACT: Snap packages utilizes squashfs as a compressed filesystem, disabling squashfs will cause Snap packages to fail.
-        cis_ubuntu2404_rule_1_3_1_3: false # NOTE: disabled - will run to have all in complain-mode'
-        cis_ubuntu2404_rule_1_3_1_4: false # NOTE: disabled - will run to have all in enforce-mode
+        # cis_ubuntu2404_rule_1_1_1_4: "{{ pl_a_var_server_client }}" # hfsplus
+        # cis_ubuntu2404_rule_1_1_1_7: "{{ pl_a_var_server_client }}" # squashfs - IMPACT: Snap packages utilizes squashfs as a compressed filesystem, disabling squashfs will cause Snap packages to fail.
+        # ccis_ubuntu2404_rule_1_3_1_3: false # NOTE: disabled - will run to have all in complain-mode'
+        # cis_ubuntu2404_rule_1_3_1_4: false # NOTE: disabled - will run to have all in enforce-mode
         cis_ubuntu2404_rule_1_5_1: false
         cis_ubuntu2404_rule_1_5_2: false
         cis_ubuntu2404_rule_1_5_3: false
@@ -253,8 +253,8 @@
         cis_ubuntu2404_rule_5_2_4: false
         cis_ubuntu2404_rule_5_3_1_1: false
         cis_ubuntu2404_rule_5_3_1_2: false
-        cis_ubuntu2404_rule_5_3_1_3: false
-        cis_ubuntu2404_rule_5_3_3_1_3: false
+        # cis_ubuntu2404_rule_5_3_1_3: false
+        # cis_ubuntu2404_rule_5_3_3_1_3: false
         cis_ubuntu2404_rule_5_3_3_3_3: false
         cis_ubuntu2404_rule_5_3_3_4_3: false
         cis_ubuntu2404_rule_5_3_3_4_4: false
