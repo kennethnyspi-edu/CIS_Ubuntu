@@ -277,8 +277,8 @@
         # cis_ubuntu2204_rule_1_1_1_8: "{{ pl_a_var_server_client }}" # Disable USB Storage, set to false to not disable
         cis_ubuntu2204_time_synchronization_service: chrony # chrony | systemd-timesyncd
         cis_ubuntu2204_time_synchronization_time_server:
-          - uri: '{{ pl_a_host_default_ntp | default("time.cloudflare.com")}}'
-          - uri: '{{ pl_a_host_fallback_ntp | default("ntp.ubuntu.com")}}'
+          - uri: '{{ pl_a_host_default_ntp | default("time.cloudflare.com") }}'
+          - uri: '{{ pl_a_host_fallback_ntp | default("ntp.ubuntu.com") }}'
         cis_ubuntu2204_allow_cups: "{{ pl_a_var_client_server }}"
         # -------------------------
         cis_ubuntu2204_install_aide: "{{ pl_a_cis_setup_aide | default(false) | bool }}"
