@@ -1,6 +1,6 @@
 ---
 # playbook CIS
-# Kenneth Masis -- > Changed 04/23/2025 
+# Kenneth Masis -- > Changed 04/23/2025
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 - name: "CIS | hardening run"
@@ -229,4 +229,3 @@
         - pl_a_cis_setup | bool
         - pl_a_cis_setup_aide is defined
         - pl_a_cis_setup_aide | bool
-        
