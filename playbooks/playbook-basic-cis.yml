@@ -182,6 +182,32 @@
         cis_ubuntu2004_rule_4_5_7: false
 
         # ---Section 5 --------------------
+        cis_ubuntu2204_rule_5_1_0: false
+        cis_ubuntu2204_rule_5_1_1: false
+        cis_ubuntu2204_rule_5_1_2: false
+        cis_ubuntu2204_rule_5_1_3: false
+        cis_ubuntu2204_rule_5_1_4: false
+        cis_ubuntu2204_rule_5_1_5: false
+        cis_ubuntu2204_rule_5_1_6: false
+        cis_ubuntu2204_rule_5_1_7: false
+        cis_ubuntu2204_rule_5_1_8: false
+        cis_ubuntu2204_rule_5_1_9: false
+        cis_ubuntu2204_rule_5_1_10: false
+        cis_ubuntu2204_rule_5_1_11: false
+        cis_ubuntu2204_rule_5_1_12: false
+        cis_ubuntu2204_rule_5_1_13: false
+        cis_ubuntu2204_rule_5_1_14: false
+        cis_ubuntu2204_rule_5_1_15: false
+        cis_ubuntu2204_rule_5_1_16: false
+        cis_ubuntu2204_rule_5_1_17: false
+        cis_ubuntu2204_rule_5_1_18: false
+        cis_ubuntu2204_rule_5_1_19: false
+        cis_ubuntu2204_rule_5_1_20: false
+        cis_ubuntu2204_rule_5_1_21: false
+        cis_ubuntu2204_rule_5_1_22: false
+        cis_ubuntu2204_rule_5_1_23: false
+        cis_ubuntu2204_rule_5_1_24: false
+
         cis_ubuntu2004_rule_5_1_1_1_1: false 
         cis_ubuntu2004_rule_5_1_1_1_2: false
         cis_ubuntu2004_rule_5_1_1_1_3: false
