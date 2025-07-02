@@ -96,34 +96,34 @@
         cis_ubuntu2004_rule_3_3_7: false
         cis_ubuntu2004_rule_3_3_8: false
         cis_ubuntu2004_rule_3_3_9: false
-        cis_ubuntu2004_rule_3_4_1_1: false
-        cis_ubuntu2004_rule_3_4_1_2: false
-        cis_ubuntu2004_rule_3_4_1_3: false
-        cis_ubuntu2004_rule_3_4_1_4: false
-        cis_ubuntu2004_rule_3_4_1_5: false
-        cis_ubuntu2004_rule_3_4_1_6: false
-        cis_ubuntu2004_rule_3_4_1_7: false
-        cis_ubuntu2004_rule_3_4_2_1: false
-        cis_ubuntu2004_rule_3_4_2_2: false
-        cis_ubuntu2004_rule_3_4_2_3: false
-        cis_ubuntu2004_rule_3_4_2_4: false
-        cis_ubuntu2004_rule_3_4_2_5: false
-        cis_ubuntu2004_rule_3_4_2_6: false
-        cis_ubuntu2004_rule_3_4_2_7: false
-        cis_ubuntu2004_rule_3_4_2_8: false
-        cis_ubuntu2004_rule_3_4_2_9: false
-        cis_ubuntu2004_rule_3_4_2_10: false
-        cis_ubuntu2004_rule_3_4_3_1_1: false
-        cis_ubuntu2004_rule_3_4_3_1_2: false
-        cis_ubuntu2004_rule_3_4_3_1_3: false
-        cis_ubuntu2004_rule_3_4_3_2_1: false
-        cis_ubuntu2004_rule_3_4_3_2_2: false
-        cis_ubuntu2004_rule_3_4_3_2_3: false
-        cis_ubuntu2004_rule_3_4_3_2_4: false
-        cis_ubuntu2004_rule_3_4_3_3_1: false
-        cis_ubuntu2004_rule_3_4_3_3_2: false
-        cis_ubuntu2004_rule_3_4_3_3_3: false
-        cis_ubuntu2004_rule_3_4_3_3_4: false
+        #cis_ubuntu2004_rule_3_4_1_1: false
+        #cis_ubuntu2004_rule_3_4_1_2: false
+        #cis_ubuntu2004_rule_3_4_1_3: false
+        #cis_ubuntu2004_rule_3_4_1_4: false
+        #cis_ubuntu2004_rule_3_4_1_5: false
+        #cis_ubuntu2004_rule_3_4_1_6: false
+        #cis_ubuntu2004_rule_3_4_1_7: false
+        #cis_ubuntu2004_rule_3_4_2_1: false
+        #cis_ubuntu2004_rule_3_4_2_2: false
+        #cis_ubuntu2004_rule_3_4_2_3: false
+        #cis_ubuntu2004_rule_3_4_2_4: false
+        #cis_ubuntu2004_rule_3_4_2_5: false
+        #cis_ubuntu2004_rule_3_4_2_6: false
+        #cis_ubuntu2004_rule_3_4_2_7: false
+        #cis_ubuntu2004_rule_3_4_2_8: false
+        #cis_ubuntu2004_rule_3_4_2_9: false
+        #cis_ubuntu2004_rule_3_4_2_10: false
+        #cis_ubuntu2004_rule_3_4_3_1_1: false
+        #cis_ubuntu2004_rule_3_4_3_1_2: false
+        #cis_ubuntu2004_rule_3_4_3_1_3: false
+        #cis_ubuntu2004_rule_3_4_3_2_1: false
+        #cis_ubuntu2004_rule_3_4_3_2_2: false
+        #cis_ubuntu2004_rule_3_4_3_2_3: false
+        #cis_ubuntu2004_rule_3_4_3_2_4: false
+        #cis_ubuntu2004_rule_3_4_3_3_1: false
+        #cis_ubuntu2004_rule_3_4_3_3_2: false
+        #cis_ubuntu2004_rule_3_4_3_3_3: false
+        #cis_ubuntu2004_rule_3_4_3_3_4: false
         
         # ---Section 4 --------------------
         cis_ubuntu2004_rule_4_1_1: false 
