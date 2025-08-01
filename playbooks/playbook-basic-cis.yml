@@ -24,7 +24,7 @@
         - pl_a_cis_setup | bool
         - ansible_distribution | lower == "ubuntu"
         - ansible_distribution_version in ["20.04"]
-      ansible.builtin.import_role:
+      ansible.builtin.include_role:
         name: ansible-cis-ubuntu-2004
       vars:
         cis_ubuntu2004_section1: true
@@ -265,7 +265,7 @@
         - pl_a_cis_setup | bool
         - ansible_distribution | lower == "ubuntu"
         - ansible_distribution_version in ["22.04", "22.10", "23.04", "23.10"]
-      ansible.builtin.import_role:
+      ansible.builtin.include_role:
         name: ansible-cis-ubuntu-2204
       vars:
         cis_ubuntu2204_section1: true
@@ -537,7 +537,7 @@
         - pl_a_cis_setup | bool
         - ansible_distribution | lower == "ubuntu"
         - ansible_distribution_version in ["24.04", "24.10"]
-      ansible.builtin.import_role:
+      ansible.builtin.include_role:
         name: ansible-cis-ubuntu-2404
       vars:
         cis_ubuntu2404_section1: true
