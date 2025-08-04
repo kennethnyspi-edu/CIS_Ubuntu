@@ -20,7 +20,7 @@
 	branch = main
 [submodule "roles/ansible-install-server"]
 	path = roles/ansible-install-server
-	url = https://github.com/MVladislav/ansible-install-client.git
+	url = https://github.com/MVladislav/ansible-install-server
 	branch = main
 [submodule "roles/ansible-install-client"]
 	path = roles/ansible-install-client
