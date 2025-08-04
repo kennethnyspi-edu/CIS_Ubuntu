@@ -1,6 +1,6 @@
 [submodule "roles/ansible-docker"]
 	path = roles/ansible-docker
-	url = https://github.com/MVladislav/ansible-docker.git
+	url = https://github.com/MVladislav/ansible-docker
 	branch = main
 [submodule "roles/ansible-netplan"]
 	path = roles/ansible-netplan
