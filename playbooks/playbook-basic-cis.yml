@@ -14,10 +14,6 @@
     # pl_a_cis_preferred_capturing_log_method: "{{ 'rsyslog' if inventory_hostname in (groups['clients'] | default([])) else 'journald' }}"
   tasks:
 
-    #################
-    # UBUNTU 20.04
-    #################
-
     - name: "Include Ubuntu 20.04 CIS role"  
       when:
         - pl_a_cis_setup is defined
@@ -254,10 +250,6 @@
         cis_ubuntu2004_rule_6_2_10: false #
         cis_ubuntu2004_rule_6_2_11: false #
         cis_ubuntu2004_rule_6_2_12: false #
-
-        #################
-        # UBUNTU 22.04
-        #################
 
     - name: "Include Ubuntu 22.04 CIS role"
       when:
@@ -526,11 +518,7 @@
             value: "-1"
           - key: "lcredit"
             value: "-1"
-
-        #################
-        # UBUNTU 22.04
-        #################
-          
+         
     - name: "Include Ubuntu 24.04 CIS role"
       when:
         - pl_a_cis_setup is defined
