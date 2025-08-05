@@ -13,7 +13,7 @@
     # pl_a_cis_preferred_capturing_log_method: "{{ 'rsyslog' if inventory_hostname in (groups['clients'] | default([])) else 'journald' }}"
   tasks:
 
-  - name: "Include Ubuntu 20.04 CIS role"  
+  - name: "Include Ubuntu 20.04 CIS role"
     when:
       - pl_a_cis_setup is defined
       - pl_a_cis_setup | bool
@@ -73,10 +73,10 @@
       cis_ubuntu2004_rule_1_3_2: false # Ensure package manager repositories are configured -- MANUAL
       cis_ubuntu2004_rule_1_3_3: false # Ensure GPG keys are configured -- MANUAL
 
-      cis_ubuntu2004_rule_1_4_1: true # Ensure bootloader password is set 
+      cis_ubuntu2004_rule_1_4_1: true # Ensure bootloader password is set
       cis_ubuntu2004_rule_1_4_2: true # Ensure bootloader permissions are configured
       cis_ubuntu2004_rule_1_4_3: true # Ensure authentication required for single user mode
-      
+
       cis_ubuntu2004_rule_1_5_1: true # Ensure prelink is disabled
       cis_ubuntu2004_rule_1_5_2: true # Ensure address space layout randomization (ASLR) is enabled
       cis_ubuntu2004_rule_1_5_3: true # Ensure ptrace scope is set to restricted
@@ -146,7 +146,7 @@
       cis_ubuntu2004_rule_3_1_1: false # NOTE: depends also on 'cis_ubuntu2004_required_ipv6' -- MANUAL
       cis_ubuntu2004_rule_3_1_2: true  # NOTE: depends also on 'cis_ubuntu2004_required_ipv6'
       cis_ubuntu2004_rule_3_1_3: true  # NOTE: depends also on 'cis_ubuntu2004_required_ipv6'
-      cis_ubuntu2004_rule_3_2_1: true  # Ensure packet redirect sending is disabled 
+      cis_ubuntu2004_rule_3_2_1: true  # Ensure packet redirect sending is disabled
       cis_ubuntu2004_rule_3_2_2: true  # Ensure IP forwarding is disabled
       cis_ubuntu2004_rule_3_3_1: true  # Ensure source routed packets are not accepted
       cis_ubuntu2004_rule_3_3_2: true  # Ensure ICMP redirects are not accepted
@@ -183,7 +183,7 @@
 
       cis_ubuntu2004_rule_3_4_3_2_1: true # Ensure iptables default deny firewall policy
       cis_ubuntu2004_rule_3_4_3_2_2: true # Ensure iptables loopback traffic is configured
-      cis_ubuntu2004_rule_3_4_3_2_3: False # Ensure iptables outbound connections are configured -- MANUAL  
+      cis_ubuntu2004_rule_3_4_3_2_3: False # Ensure iptables outbound connections are configured -- MANUAL
       cis_ubuntu2004_rule_3_4_3_2_4: true # Ensure iptables firewall rules exist
 
       # IPV6 ip6tables rules
@@ -191,9 +191,9 @@
       cis_ubuntu2004_rule_3_4_3_3_2: False # Ensure ip6tables loopback traffic is configured
       cis_ubuntu2004_rule_3_4_3_3_3: false # Ensure ip6tables outbound connections are configured
       cis_ubuntu2004_rule_3_4_3_3_4: false # Ensure ip6tables firewall rules exist
-      
+
       # ---Section 4 --------------------
-      cis_ubuntu2004_rule_4_1_1: true  # Ensure cron daemon is enabled 
+      cis_ubuntu2004_rule_4_1_1: true  # Ensure cron daemon is enabled
       cis_ubuntu2004_rule_4_1_2: true  # Ensure permissions on /etc/crontab are configured
       cis_ubuntu2004_rule_4_1_3: true  # Ensure permissions on /etc/cron.hourly are configured
       cis_ubuntu2004_rule_4_1_4: true  # Ensure permissions on /etc/cron.daily are configured
@@ -260,7 +260,7 @@
       cis_ubuntu2204_rule_5_1_1_2: true # Ensure journald service is enabled
       cis_ubuntu2204_rule_5_1_1_3: true # Ensure journald is configured to compress large log files
       cis_ubuntu2204_rule_5_1_1_4: true # Ensure journald is configured to write logfiles to persistent disk
-      cis_ubuntu2204_rule_5_1_1_5: false # Ensure journald is not configured to send logs to rsyslog -- MANUAL 
+      cis_ubuntu2204_rule_5_1_1_5: false # Ensure journald is not configured to send logs to rsyslog -- MANUAL
       cis_ubuntu2204_rule_5_1_1_6: false # Ensure journald log rotation is configured per site policy -- MANUAL
       cis_ubuntu2204_rule_5_1_1_7: false # Ensure journald default file permissions are configured -- MANUAL
 
@@ -273,7 +273,7 @@
       cis_ubuntu2204_rule_5_1_2_7: false # Ensure rsyslog is not configured to receive logs from a remote client
 
       cis_ubuntu2204_rule_5_1_3: true # Ensure all logfiles have appropriate access confifured
-      
+
       cis_ubuntu2004_rule_5_2_4_11: true # Ensure cryptographic mechanisms are used to protect the integrity of audit tools
       
       # ---Section 6 --------------------
