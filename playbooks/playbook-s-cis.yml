@@ -429,8 +429,8 @@
       cis_ubuntu2404_rule_1_1_1_9: "{{ pl_a_var_server_client }}" # Disable USB Storage, set to false to not disable
       cis_ubuntu2404_time_synchronization_service: chrony # chrony | systemd-timesyncd
       cis_ubuntu2404_time_synchronization_time_server:
-        - uri: '{{ pl_a_host_default_ntp | default("time.cloudflare.com") }}'
-        - uri: '{{ pl_a_host_fallback_ntp | default("ntp.ubuntu.com") }}'
+      - uri: '{{ pl_a_host_default_ntp | default("time.cloudflare.com") }}'
+      - uri: '{{ pl_a_host_fallback_ntp | default("ntp.ubuntu.com") }}'
       cis_ubuntu2404_allow_cups: "{{ pl_a_var_client_server }}"
       # -------------------------
       cis_ubuntu2404_install_aide: "{{ pl_a_cis_setup_aide | default(false) | bool }}"
@@ -448,24 +448,24 @@
       cis_ubuntu2404_firewall: ufw
       # -------------------------
       cis_ubuntu2404_cron_allow_users:
-        - root
+      - root
       cis_ubuntu2404_at_allow_users:
-        - root
+      - root
       # -------------------------
       cis_ubuntu2404_faillock_deny: 5
       cis_ubuntu2404_faillock_unlock_time: 900
       cis_ubuntu2404_faillock_minlen: 8
       cis_ubuntu2404_password_complexity:
-        - key: "minclass"
-          value: "3"
-        - key: "dcredit"
-          value: "-1"
-        - key: "ucredit"
-          value: "-1"
-        - key: "ocredit"
-          value: "-1"
-        - key: "lcredit"
-          value: "-1"
+      - key: "minclass"
+        value: "3"
+      - key: "dcredit"
+        value: "-1"
+      - key: "ucredit"
+        value: "-1"
+      - key: "ocredit"
+        value: "-1"
+      - key: "lcredit"
+        value: "-1"
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -474,51 +474,51 @@
   hosts: all
   become: true
   tasks:
-    - name: "CIS | set/update system variables for aide"
-      ansible.builtin.lineinfile:
-        dest: "/etc/environment"
-        state: present
-        regexp: '^(#(\s)*)?{{ item.key }}\s*=.*$'
-        line: "{{ item.key }}={{ item.value }}"
-      with_items:
-        - key: CRON_DAILY_RUN
-          value: "yes"
-        - key: MAILTO
-          value: "{{ pl_a_mailing_mail_to | default('root') }}"
-        - key: COPYNEWDB
-          value: "yes"
-        - key: TRUNCATEDETAILS
-          value: "yes"
-        - key: FILTERUPDATES
-          value: "yes"
-        - key: FILTERINSTALLATIONS
-          value: "yes"
-      when:
-        - pl_a_cis_setup is defined
-        - pl_a_cis_setup | bool
-        - pl_a_cis_setup_aide is defined
-        - pl_a_cis_setup_aide | bool
-    - name: "CIS | set/update aide variables for aide"
-      ansible.builtin.lineinfile:
-        dest: "/etc/default/aide"
-        state: present
-        regexp: '^(#(\s)*)?{{ item.key }}\s*=.*$'
-        line: "{{ item.key }}={{ item.value }}"
-      with_items:
-        - key: CRON_DAILY_RUN
-          value: "yes"
-        - key: MAILTO
-          value: "{{ pl_a_mailing_mail_to | default('root') }}"
-        - key: COPYNEWDB
-          value: "yes"
-        - key: TRUNCATEDETAILS
-          value: "yes"
-        - key: FILTERUPDATES
-          value: "yes"
-        - key: FILTERINSTALLATIONS
-          value: "yes"
-      when:
-        - pl_a_cis_setup is defined
-        - pl_a_cis_setup | bool
-        - pl_a_cis_setup_aide is defined
-        - pl_a_cis_setup_aide | bool
+  - name: "CIS | set/update system variables for aide"
+    ansible.builtin.lineinfile:
+      dest: "/etc/environment"
+      state: present
+      regexp: '^(#(\s)*)?{{ item.key }}\s*=.*$'
+      line: "{{ item.key }}={{ item.value }}"
+    with_items:
+    - key: CRON_DAILY_RUN
+      value: "yes"
+    - key: MAILTO
+      value: "{{ pl_a_mailing_mail_to | default('root') }}"
+    - key: COPYNEWDB
+      value: "yes"
+    - key: TRUNCATEDETAILS
+      value: "yes"
+    - key: FILTERUPDATES
+      value: "yes"
+    - key: FILTERINSTALLATIONS
+      value: "yes"
+    when:
+    - pl_a_cis_setup is defined
+    - pl_a_cis_setup | bool
+    - pl_a_cis_setup_aide is defined
+    - pl_a_cis_setup_aide | bool
+  - name: "CIS | set/update aide variables for aide"
+    ansible.builtin.lineinfile:
+      dest: "/etc/default/aide"
+      state: present
+      regexp: '^(#(\s)*)?{{ item.key }}\s*=.*$'
+      line: "{{ item.key }}={{ item.value }}"
+    with_items:
+    - key: CRON_DAILY_RUN
+      value: "yes"
+    - key: MAILTO
+      value: "{{ pl_a_mailing_mail_to | default('root') }}"
+    - key: COPYNEWDB
+      value: "yes"
+    - key: TRUNCATEDETAILS
+      value: "yes"
+    - key: FILTERUPDATES
+      value: "yes"
+    - key: FILTERINSTALLATIONS
+      value: "yes"
+    when:
+    - pl_a_cis_setup is defined
+    - pl_a_cis_setup | bool
+    - pl_a_cis_setup_aide is defined
+    - pl_a_cis_setup_aide | bool
