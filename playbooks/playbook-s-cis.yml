@@ -15,10 +15,10 @@
 
   - name: "Include Ubuntu 20.04 CIS role"
     when:
-      - pl_a_cis_setup is defined
-      - pl_a_cis_setup | bool
-      - ansible_distribution | lower == "ubuntu"
-      - ansible_distribution_version in ["20.04"]
+    - pl_a_cis_setup is defined
+    - pl_a_cis_setup | bool
+    - ansible_distribution | lower == "ubuntu"
+    - ansible_distribution_version in ["20.04"]
     ansible.builtin.include_role:
       name: ansible-cis-ubuntu-2004
     vars:
@@ -275,14 +275,14 @@
       cis_ubuntu2204_rule_5_1_3: true # Ensure all logfiles have appropriate access confifured
 
       cis_ubuntu2004_rule_5_2_4_11: true # Ensure cryptographic mechanisms are used to protect the integrity of audit tools
-      
+
       # ---Section 6 --------------------
       cis_ubuntu2004_rule_6_1_1: true # Ensure permissions on /etc/passwd are configured
       cis_ubuntu2004_rule_6_1_2: true # Ensure permissions on /etc/passwd- are configured
       cis_ubuntu2004_rule_6_1_3: true # Ensure permissions on /etc/group are configured
       cis_ubuntu2004_rule_6_1_4: true # Ensure permissions on /etc/group- are configured
       cis_ubuntu2004_rule_6_1_5: true # Ensure permissions on /etc/shadow are configured
-      cis_ubuntu2004_rule_6_1_6: true # Ensure permissions on /etc/shadow- are configured 
+      cis_ubuntu2004_rule_6_1_6: true # Ensure permissions on /etc/shadow- are configured
       cis_ubuntu2004_rule_6_1_7: true # Ensure permissions on /etc/gshadow are configured
       cis_ubuntu2004_rule_6_1_8: true # Ensure permissions on /etc/gshadow- are configured
       cis_ubuntu2004_rule_6_1_9: true # Ensure permissions on /etc/shells are configured
@@ -306,10 +306,10 @@
 
   - name: "Include Ubuntu 22.04 CIS role"
     when:
-      - pl_a_cis_setup is defined
-      - pl_a_cis_setup | bool
-      - ansible_distribution | lower == "ubuntu"
-      - ansible_distribution_version in ["22.04", "22.10", "23.04", "23.10"]
+    - pl_a_cis_setup is defined
+    - pl_a_cis_setup | bool
+    - ansible_distribution | lower == "ubuntu"
+    - ansible_distribution_version in ["22.04", "22.10", "23.04", "23.10"]
     ansible.builtin.include_role:
       name: ansible-cis-ubuntu-2204
     vars:
@@ -342,8 +342,8 @@
       cis_ubuntu2204_rule_1_1_1_8: "{{ pl_a_var_server_client }}" # Disable USB Storage, set to false to not disable
       cis_ubuntu2204_time_synchronization_service: chrony # chrony | systemd-timesyncd
       cis_ubuntu2204_time_synchronization_time_server:
-        - uri: '{{ pl_a_host_default_ntp | default("time.cloudflare.com") }}'
-        - uri: '{{ pl_a_host_fallback_ntp | default("ntp.ubuntu.com") }}'
+      - uri: '{{ pl_a_host_default_ntp | default("time.cloudflare.com") }}'
+      - uri: '{{ pl_a_host_fallback_ntp | default("ntp.ubuntu.com") }}'
       cis_ubuntu2204_allow_cups: "{{ pl_a_var_client_server }}"
       # -------------------------
       cis_ubuntu2204_install_aide: "{{ pl_a_cis_setup_aide | default(false) | bool }}"
@@ -368,31 +368,31 @@
       cis_ubuntu2204_firewall: ufw
       # -------------------------
       cis_ubuntu2204_cron_allow_users:
-        - root
+      - root
       cis_ubuntu2204_at_allow_users:
-        - root
+      - root
       # -------------------------
       cis_ubuntu2204_faillock_deny: 5
       cis_ubuntu2204_faillock_unlock_time: 900
       cis_ubuntu2204_faillock_minlen: 8
       cis_ubuntu2204_password_complexity:
-        - key: "minclass"
-          value: "3"
-        - key: "dcredit"
-          value: "-1"
-        - key: "ucredit"
-          value: "-1"
-        - key: "ocredit"
-          value: "-1"
-        - key: "lcredit"
-          value: "-1"
-  
+      - key: "minclass"
+        value: "3"
+      - key: "dcredit"
+        value: "-1"
+      - key: "ucredit"
+        value: "-1"
+      - key: "ocredit"
+        value: "-1"
+      - key: "lcredit"
+        value: "-1"
+
   - name: "Include Ubuntu 24.04 CIS role"
     when:
-      - pl_a_cis_setup is defined
-      - pl_a_cis_setup | bool
-      - ansible_distribution | lower == "ubuntu"
-      - ansible_distribution_version in ["24.04", "24.10"]
+    - pl_a_cis_setup is defined
+    - pl_a_cis_setup | bool
+    - ansible_distribution | lower == "ubuntu"
+    - ansible_distribution_version in ["24.04", "24.10"]
     ansible.builtin.include_role:
       name: ansible-cis-ubuntu-2404
     vars:
