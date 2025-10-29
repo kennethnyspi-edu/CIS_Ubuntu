@@ -16,9 +16,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # https://github.com/actions/checkout
+      # Checkout repo
       - uses: actions/checkout@v4
 
-      # https://github.com/ansible/ansible-lint
+      # Set up Python 3.12 (avoid 3.14 incompatibility)
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Install latest compatible versions of ansible and ansible-lint
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install "ansible-core>=2.15,<2.20"
+          pip install ansible-lint
+
+      # Run Ansible Lint
       - name: Run ansible-lint
-        uses: ansible/ansible-lint@main
+        run: ansible-lint
