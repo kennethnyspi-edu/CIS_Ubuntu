@@ -49,3 +49,6 @@
 	path = roles/ansible-cis-ubuntu-2404
 	url = https://github.com/kennethnyspi-edu/ansible-cis-ubuntu-2404.git
 	branch = main
+[submodule "roles/ansible-cis-centos7"]
+	path = roles/ansible-cis-centos7
+	url = https://github.com/kennethnyspi-edu/CentOS7-CIS
