@@ -123,7 +123,7 @@
       cis_ubuntu2004_rule_2_2_6: true # Ensure NFS is not installed
       cis_ubuntu2004_rule_2_2_7: true # Ensure DNS server is not installed
       cis_ubuntu2004_rule_2_2_8: true # Ensure FTP server is not installed
-      cis_ubuntu2004_rule_2_2_9: true # Ensure HTTP server is not installed
+      cis_ubuntu2004_rule_2_2_9: false # Ensure HTTP server is not installed
       cis_ubuntu2004_rule_2_2_10: true # Ensure IMAP and POP3 server is not installed
       cis_ubuntu2004_rule_2_2_11: true # Ensure Samba is not installed
       cis_ubuntu2004_rule_2_2_12: true # Ensure HTTP proxy server is not installed
