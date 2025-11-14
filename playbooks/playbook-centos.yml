@@ -9,10 +9,11 @@
   vars:
     cis_level_1: true
     cis_level_2: false
-  when:
-    - ansible_distribution | lower == "centos"
-    - ansible_distribution_major_version == "7"
+
   tasks:
   - name: "Apply CIS Hardening for CentOS 7"
+    when:
+    - ansible_distribution | lower == "centos"
+    - ansible_distribution_major_version == "7"
     ansible.builtin.include_role:
       name: ansible-cis-centos7
