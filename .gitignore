@@ -54,7 +54,7 @@ playbooks/vars/*
 !playbooks/playbook-server-cluster.yml
 !playbooks/playbook-server-dev.yml
 !playbooks/playbook-server-minimal.yml
-!playbooks\playbook-centos.yml
+!playbooks/playbook-centos.yml
 
 !roles/
 !roles/*
