@@ -1,0 +1,14 @@
+# playbook CIS
+# Kenneth Masis -- > Changed 11/07/2025
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+
+- name: Apply CIS Hardening for CentOS 7
+  hosts: all
+  become: true
+  vars:
+    cis_level_1: true
+    cis_level_2: false
+
+  ansible.builtin.include_role:
+    name: ansible-cis-centos7
