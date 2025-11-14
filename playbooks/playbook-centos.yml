@@ -3,12 +3,16 @@
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-- name: Apply CIS Hardening for CentOS 7
+- name: "CIS | hardening run CentOS"
   hosts: all
   become: true
   vars:
     cis_level_1: true
     cis_level_2: false
-
-  ansible.builtin.include_role:
-    name: ansible-cis-centos7
+  when:
+    - ansible_distribution | lower == "centos"
+    - ansible_distribution_major_version == "7"
+  tasks:
+  - name: "Apply CIS Hardening for CentOS 7"
+    ansible.builtin.include_role:
+      name: ansible-cis-centos7
