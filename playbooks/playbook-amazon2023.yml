@@ -1,0 +1,21 @@
+---
+# playbook CIS
+# Kenneth Masis -- > Changed 12/03/2025
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+
+- name: "CIS | hardening run Amazon 2023"
+  hosts: all
+  become: true
+  vars:
+    cis_level_1: true
+    cis_level_2: false
+    ansible_python_interpreter: /usr/bin/python
+
+  tasks:
+  - name: "Apply CIS Hardening for Amazon 2023"
+    when:
+    - ansible_distribution | lower == "amazon"
+    - ansible_distribution_major_version == "2023"
+    ansible.builtin.include_role:
+      name: amazon2023-cis
