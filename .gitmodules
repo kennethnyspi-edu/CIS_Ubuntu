@@ -52,3 +52,6 @@
 [submodule "roles/ansible-cis-centos7"]
 	path = roles/ansible-cis-centos7
 	url = https://github.com/kennethnyspi-edu/CentOS7-CIS
+[submodule "roles/amazon2023-cis"]
+	path = roles/amazon2023-cis
+	url = https://github.com/kennethnyspi-edu/amazon2023-cis
