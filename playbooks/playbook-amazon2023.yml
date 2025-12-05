@@ -10,7 +10,7 @@
   vars:
     cis_level_1: true
     cis_level_2: false
-    ansible_python_interpreter: /usr/bin/python
+    ansible_python_interpreter: /usr/bin/python3
 
   tasks:
   - name: "Apply CIS Hardening for Amazon 2023"
