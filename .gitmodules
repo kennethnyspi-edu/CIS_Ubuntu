@@ -6,10 +6,6 @@
 	path = roles/ansible-netplan
 	url = https://github.com/MVladislav/ansible-netplan.git
 	branch = main
-[submodule "roles/ansible-security"]
-	path = roles/ansible-security
-	url = https://github.com/MVladislav/ansible-security.git
-	branch = main
 [submodule "roles/ansible-ssh"]
 	path = roles/ansible-ssh
 	url = https://github.com/MVladislav/ansible-ssh.git
@@ -55,3 +51,6 @@
 [submodule "roles/amazon2023-cis"]
 	path = roles/amazon2023-cis
 	url = https://github.com/kennethnyspi-edu/amazon2023-cis
+[submodule "roles/ansible-security"]
+	path = roles/ansible-security
+	url = https://github.com/MVladislav/ansible-security.git
