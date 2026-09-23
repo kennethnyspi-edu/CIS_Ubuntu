@@ -54,3 +54,6 @@
 [submodule "roles/ansible-security"]
 	path = roles/ansible-security
 	url = https://github.com/MVladislav/ansible-security.git
+[submodule "roles/ansible-cis-ubuntu-2604"]
+	path = roles/ansible-cis-ubuntu-2604
+	url = https://github.com/kennethnyspi-edu/ansible-cis-ubuntu-2604.git
