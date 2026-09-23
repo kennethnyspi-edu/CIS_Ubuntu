@@ -107,6 +107,8 @@ In general following playbooks/roles/tasks are run by each client playbook with 
 - playbook-s-cis
   > Harden the client by CIS rules
   - ansible-cis-ubuntu-2204
+  - ansible-cis-ubuntu-2404
+  - ansible-cis-ubuntu-2604
   - cis aide env extender
 - playbook-s-pre-install
   > some pre installs and configs
