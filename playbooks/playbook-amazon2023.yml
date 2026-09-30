@@ -7,9 +7,11 @@
 - name: "CIS | hardening run Amazon 2023"
   hosts: all
   become: true
+  force_handlers: true
   vars:
     cis_level_1: true
     cis_level_2: false
+    amzn2023cis_level_2: false
     ansible_python_interpreter: /usr/bin/python3
 
   tasks:
